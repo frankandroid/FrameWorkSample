@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+
+android {
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+    defaultConfig {
+        applicationId "com.hhly.frameworksample"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        // 开发环境
+        debug {
+            applicationIdSuffix '.debug'
+            // 会在 BuildConfig 中生成常量，可用于设置开发、测试、生产环境的属性
+            buildConfigField 'String', 'API_HOST_URL', '"http://192.168.10.234:8090/api/"'
+            manifestPlaceholders = [APP_NAME: 'FrameWork开发版']
+        }
+        // 测试环境
+        tmode.initWith(buildTypes.debug)
+        tmode {
+            minifyEnabled true
+            shrinkResources true
+            applicationIdSuffix '.test'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_HOST_URL', '"http://192.168.10.234:8092/api/"'
+            manifestPlaceholders = [APP_NAME: 'FrameWork测试版']
+        }
+        // 生产环境
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_HOST_URL', '"http://192.168.10.234:8090/api/"'
+            manifestPlaceholders = [APP_NAME: 'FrameWork']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    testCompile 'junit:junit:4.12'
+    compile project(':data')
+
+    // dagger
+    compile "com.google.dagger:dagger:$dagger_version"
+    apt "com.google.dagger:dagger-compiler:$dagger_version"
+    provided "javax.annotation:jsr250-api:$javax_annotation_version"
+
+    //butterknife
+    compile "com.jakewharton:butterknife:$butterknife_version"
+    apt "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+}
