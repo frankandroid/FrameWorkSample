@@ -16,18 +16,14 @@ import rx.subscriptions.CompositeSubscription;
  * @描述：${presenter的基类}
  */
 
-public class BasePresenter<V extends IView> implements IPresenter<V> {
+public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
 
     protected V mView;
     protected DataManager mDataManager;
     private CompositeSubscription mCompositeSubscription;
 
-    public BasePresenter() {
-        mDataManager = App.getDataManager();
-    }
-
     public BasePresenter(V view) {
-        this();
+        mDataManager = App.getInstance().getDataManager();
         onAttachView(view);
     }
 
@@ -60,5 +56,4 @@ public class BasePresenter<V extends IView> implements IPresenter<V> {
                 .subscribe(subscriber);
         mCompositeSubscription.add(subscription);
     }
-
 }

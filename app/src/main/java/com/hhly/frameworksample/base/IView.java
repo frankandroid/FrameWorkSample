@@ -7,4 +7,5 @@ package com.hhly.frameworksample.base;
  */
 
 public interface IView {
+
 }

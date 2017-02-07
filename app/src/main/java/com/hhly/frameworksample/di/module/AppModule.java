@@ -14,7 +14,7 @@ import dagger.Provides;
  * @时间 2017/2/6 14:32
  * @描述：${TODO}
  */
-@Module()
+@Module
 public class AppModule {
 
     Application mApplication;
@@ -35,6 +35,4 @@ public class AppModule {
 
         return new DataManager();
     }
-
-
 }

@@ -8,10 +8,8 @@ package com.hhly.frameworksample.base;
 
 public interface IPresenter<V extends IView> {
 
-
     void onAttachView(V view);
 
     void onDetachView(V view);
-
 
 }

@@ -19,14 +19,17 @@ import javax.inject.Inject;
 public class App extends Application {
 
     @Inject
-    static DataManager mDataManager;
+    DataManager mDataManager;
 
     AppComponent mAppComponent;
 
+    private static App mApp;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mApp = this;
 
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
         mAppComponent.injectApp(this);
@@ -44,9 +47,12 @@ public class App extends Application {
         return mAppComponent;
     }
 
-    public static DataManager getDataManager() {
+    public DataManager getDataManager() {
         return mDataManager;
     }
 
+    public static App getInstance(){
+        return mApp;
+    }
 
 }

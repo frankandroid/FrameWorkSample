@@ -27,7 +27,6 @@ public class DataModule {
 
     private static final String BASE_URL = "http://news-at.zhihu.com/api/4/";
 
-
     @Singleton
     @Provides
     public DailyRepository provideDailyRepository(DailyApi dailyApi) {
@@ -114,6 +113,5 @@ public class DataModule {
         interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         return interceptor;
     }
-
 
 }

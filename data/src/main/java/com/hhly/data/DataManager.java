@@ -22,6 +22,4 @@ public class DataManager {
         DaggerDataComponent.builder().dataModule(new DataModule()).build().injectDataManager(this);
 
     }
-
-
 }

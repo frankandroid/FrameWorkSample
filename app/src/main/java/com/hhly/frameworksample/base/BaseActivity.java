@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * @描述：${TODO}
  */
 
-public class BaseActivity extends AppCompatActivity implements IView {
+public class BaseActivity extends AppCompatActivity {
 
 
 
