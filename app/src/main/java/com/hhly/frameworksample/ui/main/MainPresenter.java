@@ -12,11 +12,7 @@ import rx.Subscriber;
  * @描述：${TODO}
  */
 
-public class MainPresenter extends BasePresenter<MainContact.View> implements MainContact.Presenter {
-
-    public MainPresenter(MainContact.View view) {
-        super(view);
-    }
+public class MainPresenter extends BasePresenter<MainContact.View,MainContact.Model> implements MainContact.Presenter {
 
     @Override
     public void GetDailyData() {
@@ -38,7 +34,5 @@ public class MainPresenter extends BasePresenter<MainContact.View> implements Ma
                 mView.onGetDailyDataSuc(newsBean);
             }
         });
-
     }
-
 }

@@ -1,6 +1,7 @@
 package com.hhly.frameworksample.ui.main;
 
 import com.hhly.data.bean.NewsBean;
+import com.hhly.frameworksample.base.BaseModel;
 import com.hhly.frameworksample.base.IPresenter;
 import com.hhly.frameworksample.base.IView;
 
@@ -12,6 +13,13 @@ import com.hhly.frameworksample.base.IView;
 
 public class MainContact {
 
+
+    interface Model extends BaseModel{
+        //对数据进行处理完后返回给View或者是Presenter
+        NewsBean disPoseNewsBean(NewsBean newsBean);
+    }
+
+
     interface View extends IView {
 
         void onGetDailyDataSuc(NewsBean newsBean);
@@ -19,7 +27,7 @@ public class MainContact {
 
     }
 
-    interface Presenter extends IPresenter<View> {
+    interface Presenter extends IPresenter<View,Model> {
 
        void GetDailyData();
 

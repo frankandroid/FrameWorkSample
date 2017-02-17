@@ -16,26 +16,28 @@ import rx.subscriptions.CompositeSubscription;
  * @描述：${presenter的基类}
  */
 
-public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
+public abstract class BasePresenter<V extends IView, M extends BaseModel> implements IPresenter<V,M> {
 
     protected V mView;
+    protected M mModel;
     protected DataManager mDataManager;
     private CompositeSubscription mCompositeSubscription;
 
-    public BasePresenter(V view) {
+    public BasePresenter() {
         mDataManager = App.getInstance().getDataManager();
-        onAttachView(view);
     }
 
     @Override
-    public void onAttachView(V view) {
-      this.mView = view;
+    public void onAttachView(V view, M model) {
+        this.mView = view;
+        this.mModel = model;
     }
 
     @Override
     public void onDetachView(IView view) {
         onUnSubscribe();
     }
+
     /**
      * rxJava取消注册，以避免内存泄露
      */
@@ -45,7 +47,9 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
         }
     }
 
-    /**这里是统一处理observable,这样就不用在每次网络请求回来后都加上线程切换的代码*/
+    /**
+     * 这里是统一处理observable,这样就不用在每次网络请求回来后都加上线程切换的代码
+     */
     public <T> void addSubscription(Observable<T> observable, Subscriber<T> subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();

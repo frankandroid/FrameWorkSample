@@ -6,9 +6,9 @@ package com.hhly.frameworksample.base;
  * @描述：${present的接口}
  */
 
-public interface IPresenter<V extends IView> {
+public interface IPresenter<V extends IView,M extends BaseModel> {
 
-    void onAttachView(V view);
+    void onAttachView(V view,M model);
 
     void onDetachView(V view);
 

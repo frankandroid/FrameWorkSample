@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends MvpActivity<MainContact.Presenter> implements MainContact.View {
+public class MainActivity extends MvpActivity<MainPresenter,MainModel> implements MainContact.View {
 
     @BindView(R.id.bt)
     Button mBt;
@@ -29,10 +29,6 @@ public class MainActivity extends MvpActivity<MainContact.Presenter> implements 
 
     }
 
-    @Override
-    protected MainContact.Presenter initPresenter() {
-        return new MainPresenter(this);
-    }
 
     @OnClick({R.id.bt})
     void onButtonClick(View view) {
@@ -47,7 +43,8 @@ public class MainActivity extends MvpActivity<MainContact.Presenter> implements 
     @Override
     public void onGetDailyDataSuc(NewsBean newsBean) {
 
-        mTv.setText(newsBean.toString());
+        NewsBean newsBean1 = mModel.disPoseNewsBean(newsBean);
+        mTv.setText(newsBean1.toString());
 
     }
 

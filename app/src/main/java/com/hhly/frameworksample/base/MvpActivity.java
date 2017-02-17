@@ -3,26 +3,29 @@ package com.hhly.frameworksample.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.hhly.frameworksample.util.TUtil;
+
 /**
  * @创建者 frank
  * @时间 2017/2/7 18:18
  * @描述：${mvpActivity的基类}
  */
 
-public abstract class MvpActivity<P extends IPresenter> extends BaseActivity implements IView {
+public abstract class MvpActivity<P extends IPresenter, M extends BaseModel> extends BaseActivity
+        implements IView {
 
     protected P mPresenter;
+    protected M mModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = initPresenter();
-    }
+        mPresenter = TUtil.getT(this, 0);
+        mModel = TUtil.getT(this, 1);
 
-    /**
-     * 由子类去创建presenter
-     */
-    protected abstract P initPresenter();
+        mPresenter.onAttachView(this,mModel);
+
+    }
 
 
     @Override
